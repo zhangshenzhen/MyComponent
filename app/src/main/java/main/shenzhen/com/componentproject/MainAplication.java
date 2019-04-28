@@ -33,7 +33,8 @@ public class MainAplication extends Application implements IComponentApplication
                 Log.e("initialize", e.getMessage());
             }
         }
-        //注册调用主app监听对象
+
+        //注册调用主app监听对象 有库到主app
         ServiceFactory.getInstance().setmIBackMain(new IServaceBack());
     }
 

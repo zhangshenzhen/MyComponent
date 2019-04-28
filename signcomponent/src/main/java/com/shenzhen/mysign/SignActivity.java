@@ -16,7 +16,6 @@ public class SignActivity extends AppCompatActivity {
         findViewById(R.id.tvback).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // ServiceFactory.getInstance().getmIBackMain().startMain(SignActivity.this,"");
              //module2  跳转到module1
             ServiceFactory.getInstance().getLoginService().launchLogin(SignActivity.this,"");
             }
