@@ -52,5 +52,4 @@ public class ServiceFactory {
         this.mIBackMain = mIBackMain;
     }
 
-
 }
