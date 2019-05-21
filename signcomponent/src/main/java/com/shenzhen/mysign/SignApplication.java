@@ -18,6 +18,7 @@ public class SignApplication extends Application implements IComponentApplicatio
         initialize(this);
     }
 
+
     @Override
     public void initialize(Application app) {
         application = app;

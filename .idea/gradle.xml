@@ -9,7 +9,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/bluetooth" />
             <option value="$PROJECT_DIR$/logincomponent" />
+            <option value="$PROJECT_DIR$/recycler_layoutmanager" />
             <option value="$PROJECT_DIR$/sharedlibrary" />
             <option value="$PROJECT_DIR$/signcomponent" />
           </set>
