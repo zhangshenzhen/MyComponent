@@ -1,1 +1,1 @@
-include ':app',  ':signcomponent', ':logincomponent', ':sharedlibrary', ':recycler_layoutmanager', ':bluetooth'
+include ':app',  ':signcomponent', ':logincomponent', ':sharedlibrary', ':recycler_layoutmanager', ':bluetooth', ':User_Photo'

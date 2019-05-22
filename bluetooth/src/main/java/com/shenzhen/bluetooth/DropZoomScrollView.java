@@ -12,7 +12,7 @@ import android.widget.ScrollView;
  * 下拉放大头部图片 适应方式 直接包裹整个布即可
  */
 public class DropZoomScrollView extends ScrollView implements View.OnTouchListener {
-
+    //今日工作总结：1,梳理属于自定义填充布局架构，和app头像裁剪功能
     // 记录首次按下位置
     private float mFirstPosition = 0;
     // 是否正在放大
