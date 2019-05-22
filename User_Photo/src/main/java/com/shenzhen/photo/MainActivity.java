@@ -24,6 +24,7 @@ import android.text.format.Time;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,7 +34,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements  ActivityCompat.OnRequestPermissionsResultCallback {
+public class MainActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
     private ImageView user_img;
     private static final int REQUEST_CODE_PERMISSION_LOCATION = 100;
@@ -67,10 +68,16 @@ public class MainActivity extends AppCompatActivity implements  ActivityCompat.O
         });
         requestPromession();
     }
-    public void takePicture(View view){
-        useCamera();
+
+    public void takePicture(View view) {
+        useCamera();//使用相机
     }
-    public void fromPicture(View view){
+
+    public void fromPicture(View view) {
+        getPhoto(); //从相册中获取
+    }
+
+    private void getPhoto() {
         // 获取相册
         Intent intent1 = new Intent(Intent.ACTION_PICK,
                 null);
@@ -79,7 +86,27 @@ public class MainActivity extends AppCompatActivity implements  ActivityCompat.O
                 IMAGE_UNSPECIFIED);
 
         startActivityForResult(intent1, PHOTO_REQUEST_GALLERY);
+    }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        File file = new File(PATH, "head.jpg");
+        if (file.exists()) {
+            photoUri = Uri.fromFile(file);
+            Bitmap bp = null;
+            try {
+
+                bp = BitmapFactory.decodeStream(getContentResolver().openInputStream(photoUri));
+
+                user_img.setImageBitmap(bp);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
     /**
@@ -112,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements  ActivityCompat.O
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PHOTO_REQUEST_CAMERA){
+        if (requestCode == PHOTO_REQUEST_CAMERA) {
             str_datePic = getFromSharedPreference("str_datePic");
             File picture = new File(PATH + str_datePic);
             //生成URI地址
@@ -156,6 +183,7 @@ public class MainActivity extends AppCompatActivity implements  ActivityCompat.O
         }
 
     }
+
     private Uri getUri() {
         str_datePic = getFromSharedPreference("str_datePic");
         File path = new File(PATH);
@@ -204,20 +232,22 @@ public class MainActivity extends AppCompatActivity implements  ActivityCompat.O
     }
 
 
-    /**存储数据到SharePreference**/
-    public  void saveDataToSharePreference(String key,String value){
+    /**
+     * 存储数据到SharePreference
+     **/
+    public void saveDataToSharePreference(String key, String value) {
         SharedPreferences sharedPreferences = getSharedPreferences("hyb", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(key,value);
+        editor.putString(key, value);
         editor.commit();
     }
 
-    public String getFromSharedPreference(String key){
+    public String getFromSharedPreference(String key) {
         String string;
         try {
-            SharedPreferences sharedPreferences = getSharedPreferences("hyb",Context.MODE_PRIVATE);
-            string = sharedPreferences.getString(key,"");
-        }catch (Exception e){
+            SharedPreferences sharedPreferences = getSharedPreferences("hyb", Context.MODE_PRIVATE);
+            string = sharedPreferences.getString(key, "");
+        } catch (Exception e) {
             return "";
         }
         return string;
@@ -225,8 +255,8 @@ public class MainActivity extends AppCompatActivity implements  ActivityCompat.O
 
     private void requestPromession() {
         if (Build.VERSION.SDK_INT >= 23) {
-            String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    ,Manifest.permission.READ_EXTERNAL_STORAGE};
+            String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    , Manifest.permission.READ_EXTERNAL_STORAGE};
             List<String> permissionDeniedList = new ArrayList<>();
             for (String permission : permissions) {
                 int permissionCheck = ContextCompat.checkSelfPermission(this, permission);
@@ -246,7 +276,7 @@ public class MainActivity extends AppCompatActivity implements  ActivityCompat.O
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        //是否得到权限、、此处偷懒省略。。。
+        //是否得到权限回调、、此处偷懒省略。。。
     }
 
 }
