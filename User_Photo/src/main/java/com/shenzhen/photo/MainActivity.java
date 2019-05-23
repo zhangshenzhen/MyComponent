@@ -32,7 +32,7 @@ import java.util.List;
 
 
 
-//佛主保佑
+//佛主保佑,永无bug
 public class MainActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
     private ImageView user_img;
